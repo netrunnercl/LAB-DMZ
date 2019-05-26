@@ -1,0 +1,304 @@
+SMGMT-A#show running-config
+! Embedded ASCII Configuration Generator Script
+! Model = Ethernet Routing Switch 4524GT-PWR
+! Software version = v5.7.3.030
+!
+! Displaying only parameters different to default
+!================================================
+enable
+configure terminal
+!
+! *** CORE (Phase 1) ***
+!
+ntp server 81.83.15.62 enable
+ntp server 85.88.55.5 enable
+ntp server 193.190.147.153 enable
+ntp server 195.200.224.66 enable
+ntp interval 10
+ntp
+!
+! *** SNMP ***
+!
+snmp-server name "SMGMT-A"
+!
+! *** IP  ***
+!
+ip default-gateway 192.168.12.1
+ip address stack 0.0.0.0
+ip address switch 192.168.12.24
+!
+! *** IP Manager ***
+!
+!
+! *** ASSET ID ***
+!
+!
+! *** IPFIX ***
+!
+ip ipfix export-interval 55
+ip ipfix collector 172.16.2.3 enable
+interface Ethernet ALL
+ip ipfix port ALL enable
+exit
+ip ipfix enable
+!
+! *** System Logging ***
+!
+logging remote address 192.168.12.121
+logging remote enable
+logging remote level informational
+!
+! *** STACK ***
+!
+!
+! *** Custom Banner ***
+!
+!
+! *** STP (Phase 1) ***
+!
+spanning-tree stp 2 create
+spanning-tree stp 3 create
+spanning-tree stp 4 create
+spanning-tree stp 5 create
+spanning-tree stp 6 create
+!
+! *** LACP (Phase 1) ***
+!
+!LACP mode is set to OFF on all interfaces to enable manipulation of
+!ports with LACP enabled
+interface Ethernet ALL
+lacp mode port ALL off
+exit
+!
+! *** VLAN ***
+!
+vlan create 200 type port 3
+vlan create 260-269 type port 1
+vlan name 200 "MGMT"
+vlan name 260 "VLAN260 FABFWDMZ"
+vlan name 261 "VLAN261 XP1FWDMZ"
+vlan name 262 "VLAN262 FABFWOFF"
+vlan name 263 "VLAN263 XP1FWOFF"
+vlan name 264 "VLAN264 FABIND"
+vlan name 265 "VLAN265 XP1FWIND"
+vlan name 266 "RPX-HA"
+vlan name 267 "RPY-HA"
+vlan name 268 "VLAN268 FABFWVOO"
+vlan name 269 "VLAN269 XP1FWVOO"
+vlan ports 1-22 filter-unregistered-frames disable
+vlan ports 23 tagging unTagPvidOnly filter-unregistered-frames disable
+vlan ports 24 tagging tagAll filter-unregistered-frames disable
+vlan configcontrol flexible
+vlan members 1 24
+vlan members 200 1-12,23-24
+vlan members 260 13,24
+vlan members 261 14,24
+vlan members 262 15,24
+vlan members 263 16,24
+vlan members 264 17,24
+vlan members 265 18,24
+vlan members 266 19,24
+vlan members 267 20,24
+vlan members 268 21,24
+vlan members 269 22,24
+vlan ports 1-12 pvid 200
+vlan ports 13 pvid 260
+vlan ports 14 pvid 261
+vlan ports 15 pvid 262
+vlan ports 16 pvid 263
+vlan ports 17 pvid 264
+vlan ports 18 pvid 265
+vlan ports 19 pvid 266
+vlan ports 20 pvid 267
+vlan ports 21 pvid 268
+vlan ports 22 pvid 269
+vlan ports 23 pvid 200
+vlan configcontrol strict
+!
+! *** EAP ***
+!
+interface Ethernet ALL
+eapol multihost port ALL mac-max 2
+exit
+!
+! *** EAP Guest VLAN ***
+!
+!
+! *** EAP Fail Open VLAN ***
+!
+!
+! *** EAP Voip VLAN ***
+!
+!
+! *** 802.1ab ***
+!
+!
+! *** 802.1ab vendor-specific Avaya TLVs config ***
+!
+!
+! *** 802.1AB MED Voice Network Policies ***
+!
+!
+! *** QOS ***
+!
+!
+! *** RMON ***
+!
+!
+! *** Interface ***
+!
+interface Ethernet ALL
+name port 1 "MGMT 1"
+name port 2 "MGMT 2"
+name port 3 "MGMT 3"
+name port 4 "MGMT 4"
+name port 8 "VCENTER SERVER"
+name port 9 "NUC main"
+name port 10 "2nd FLOOR"
+name port 11 "PROD LAN"
+name port 12 "WIFI AP -1"
+name port 13 "WIFI AP 1"
+name port 14 "WIFI AP - GROUND"
+name port 15 "TEST LAN"
+name port 17 "srxC-1"
+name port 18 "TEST DMZ"
+name port 19 "RPX-A HA"
+name port 20 "RPY-A HA"
+name port 21 "TEST LAN"
+name port 22 "TELENET Modem"
+name port 23 TRUNK
+exit
+!
+! *** Rate-Limit ***
+!
+!
+! *** MLT (Phase 1) ***
+!
+!
+! *** MAC-Based Security ***
+!
+!
+! *** LACP (Phase 2) ***
+!
+!
+! *** ADAC ***
+!
+!
+! *** STP (Phase 2) ***
+!
+! spanning-tree stp 3 add-vlan 200
+spanning-tree stp 3 enable
+!
+! *** Port Mirroring ***
+!
+!
+! *** VLAN Phase 2***
+!
+vlan mgmt 200
+!
+! *** MLT (Phase 2) ***
+!
+!
+! *** PoE ***
+!
+!
+! *** RTC ***
+!
+clock source ntp
+!
+! *** Avaya Energy Saver ***
+!
+!
+! *** AUR ***
+!
+!
+! *** AAUR ***
+!
+!
+! *** L3 ***
+!
+!
+!
+! --- ECMP ---
+!
+! No license for ECMP.
+! Contact support@avaya.com to update Software license.
+ip route 0.0.0.0 0.0.0.0 192.168.10.1 10
+ip route 10.128.10.0 255.255.255.0 10.128.10.2 1
+ip route 10.128.100.0 255.255.255.0 10.128.10.137 1
+ip route 10.128.200.0 255.255.255.0 10.128.10.137 1
+ip route 172.16.0.0 255.240.0.0 10.128.10.2 1
+ip route 172.20.101.0 255.255.255.0 192.168.12.1 1
+ip route 192.168.1.0 255.255.255.0 192.168.12.1 1
+ip route 192.168.10.0 255.255.255.0 192.168.10.1 1
+ip route 192.168.12.0 255.255.255.0 192.168.12.1 1
+!
+! *** Brouter Port ***
+!
+!
+! *** CORE (Phase 2) ***
+!
+!
+! *** IPV6 ***
+!
+!
+! *** VLACP ***
+!
+!
+! *** DHCP Relay ***
+!
+!
+! *** L3 Protocols ***
+!
+!
+! --- IP Directed Broadcast ---
+!
+!
+! --- Proxy ARP ---
+!
+!
+! --- UDP Broadcast Forwarding ---
+!
+!
+! --- VRRP ---
+!
+!
+! --- Route Policies ---
+!
+!
+! --- OSPF ---
+!
+router ospf
+router-id 153.165.196.0
+exit
+!
+! --- RIP ---
+!
+!
+! *** DHCP SNOOPING ***
+!
+!
+! *** ARP INSPECTION ***
+!
+!
+! *** IP SOURCE GUARD ***
+!
+!
+! *** IGMP ***
+!
+!
+! *** STACK MONITOR ***
+!
+!
+! *** SLPP-guard ***
+!
+!
+! *** SLAMON ***
+!
+!
+! *** LINK STATE TRACKING ***
+!
+!
+! *** Fabric Attach ***
+!
+SMGMT-A#
