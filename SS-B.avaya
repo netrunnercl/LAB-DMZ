@@ -1,4 +1,4 @@
-SS-B#show running-config
+SS-B(config)#show running-config
 ! Embedded ASCII Configuration Generator Script
 ! Model = Ethernet Routing Switch 4526GTX
 ! Software version = v5.6.0.009
@@ -30,9 +30,9 @@ tftp-server 100.0.111.203
 ! *** SNMP ***
 !
 snmp-server enable
-snmp-server contact "Informatica"
+snmp-server contact "Rafael Torrales"
 snmp-server name "SS-B"
-snmp-server location "Poli 3 / Cardio"
+snmp-server location "STOCKEL Rack B"
 ! snmp-server host 100.0.111.33 "********"
 snmp-server notification-control ospfVirtIfStateChange
 snmp-server notification-control ospfNbrStateChange
@@ -46,7 +46,6 @@ snmp-server notification-control ospfIfStateChange
 ! *** IP  ***
 !
 ip default-gateway 192.168.12.1
-ip address stack 10.2.2.73
 ip address switch 192.168.12.235
 ip address netmask 255.255.255.0
 !
@@ -92,14 +91,11 @@ spanning-tree port-mode auto
 !
 ! *** VLAN ***
 !
-vlan create 2,4,10,20,50,121,200 type port 1
+vlan create 2,10,20,200 type port 1
 vlan name 1 "Default"
 vlan name 2 "Management"
-vlan name 4 "ADSL"
 vlan name 10 "OFFICE"
 vlan name 20 "INDUSTRIAL"
-vlan name 50 "Cardiologie"
-vlan name 121 "Devices non-IT"
 vlan name 200 "DMZ MANAGEMENT"
 vlan ports 21 tagging tagAll filter-unregistered-frames disable
 vlan ports 25-26 tagging tagAll
@@ -156,14 +152,14 @@ exit
 ! *** Interface ***
 !
 interface FastEthernet ALL
-name port 1 "Drone 1"
+name port 1 "Drone 1: UNER"
 name port 2 "Drone 2"
 name port 3 "Drone  3"
-name port 4 "Drone 4"
-name port 5 "Drone 5"
-name port 6 "Drone 6"
-name port 7 "Drone 7"
-name port 8 "Drone 8"
+name port 4 "Drone 4: BAILEY"
+name port 5 "Drone 5: PLASTIKMAN"
+name port 6 "Drone 6: Faraone"
+name port 7 "Drone 7: DUBFIRE"
+name port 8 "Drone 8: DIGWEED"
 name port 21 "port 21 trunk sb"
 name port 22 "port 22 to switch mgmt"
 name port 25 "UPLINK Core 5632 Stookzaal"
@@ -287,4 +283,4 @@ exit
 !
 ! *** SLPP-guard ***
 !
-SS-B#
+SS-B(config)#
