@@ -1,0 +1,269 @@
+SMGMT-B#show running-config
+! Embedded ASCII Configuration Generator Script
+! Model = Ethernet Routing Switch 4524GT-PWR
+! Software version = v5.7.3.030
+!
+! Displaying only parameters different to default
+!================================================
+enable
+configure terminal
+!
+! *** CORE (Phase 1) ***
+!
+ntp server 85.88.55.5 enable
+ntp server 193.190.147.153 enable
+ntp server 195.200.224.66 enable
+ntp interval 10
+cli password telnet local
+!
+! *** SNMP ***
+!
+snmp-server name "SMGMT-B"
+!
+! *** IP  ***
+!
+ip default-gateway 192.168.12.1
+ip address switch 192.168.12.54
+!
+! *** IP Manager ***
+!
+!
+! *** ASSET ID ***
+!
+!
+! *** IPFIX ***
+!
+!
+! *** System Logging ***
+!
+logging remote address 192.168.12.121
+logging remote enable
+logging remote level informational
+!
+! *** STACK ***
+!
+!
+! *** Custom Banner ***
+!
+!
+! *** STP (Phase 1) ***
+!
+spanning-tree stp 2 create
+spanning-tree stp 3 create
+spanning-tree stp 4 create
+spanning-tree stp 5 create
+spanning-tree stp 6 create
+!
+! *** LACP (Phase 1) ***
+!
+!LACP mode is set to OFF on all interfaces to enable manipulation of
+!ports with LACP enabled
+interface Ethernet ALL
+lacp mode port ALL off
+exit
+!
+! *** VLAN ***
+!
+vlan create 200,260-269 type port 1
+vlan name 200 "MGMT"
+vlan name 260 "VLAN260 FABFWDMZ"
+vlan name 261 "VLAN261 XP1FWDMZ"
+vlan name 262 "VLAN262 FABFWOFF"
+vlan name 263 "VLAN263 XP1FWOFF"
+vlan name 264 "VLAN264 FABIND"
+vlan name 265 "VLAN265 XP1FWIND"
+vlan name 266 "RPX-HA"
+vlan name 267 "RPY-HA"
+vlan name 268 "VLAN268 FABFWVOO"
+vlan name 269 "VLAN269 XP1FWVOO"
+vlan ports 1-22 filter-unregistered-frames disable
+vlan ports 24 tagging tagAll filter-unregistered-frames disable
+vlan configcontrol flexible
+vlan members 1 24
+vlan members 200 1-12,23-24
+vlan members 260 13,24
+vlan members 261 14,24
+vlan members 262 15,24
+vlan members 263 16,24
+vlan members 264 17,24
+vlan members 265 18,24
+vlan members 266 19,24
+vlan members 267 20,24
+vlan members 268 21,24
+vlan members 269 22,24
+vlan ports 1-12 pvid 200
+vlan ports 13 pvid 260
+vlan ports 14 pvid 261
+vlan ports 15 pvid 262
+vlan ports 16 pvid 263
+vlan ports 17 pvid 264
+vlan ports 18 pvid 265
+vlan ports 19 pvid 266
+vlan ports 20 pvid 267
+vlan ports 21 pvid 268
+vlan ports 22 pvid 269
+vlan ports 23 pvid 200
+vlan configcontrol strict
+!
+! *** EAP ***
+!
+!
+! *** EAP Guest VLAN ***
+!
+!
+! *** EAP Fail Open VLAN ***
+!
+!
+! *** EAP Voip VLAN ***
+!
+!
+! *** 802.1ab ***
+!
+!
+! *** 802.1ab vendor-specific Avaya TLVs config ***
+!
+!
+! *** 802.1AB MED Voice Network Policies ***
+!
+!
+! *** QOS ***
+!
+!
+! *** RMON ***
+!
+!
+! *** Interface ***
+!
+interface Ethernet ALL
+name port 1 "MGMT 1"
+name port 2 "MGMT 2"
+name port 3 "MGMT 3"
+name port 4 "MGMT 4"
+name port 19 "RPX-B HA"
+name port 20 "RPY-B HA"
+name port 23 TRUNK
+exit
+!
+! *** Rate-Limit ***
+!
+!
+! *** MLT (Phase 1) ***
+!
+!
+! *** MAC-Based Security ***
+!
+!
+! *** LACP (Phase 2) ***
+!
+!
+! *** ADAC ***
+!
+!
+! *** STP (Phase 2) ***
+!
+!
+! *** Port Mirroring ***
+!
+!
+! *** VLAN Phase 2***
+!
+vlan mgmt 200
+!
+! *** MLT (Phase 2) ***
+!
+!
+! *** PoE ***
+!
+!
+! *** RTC ***
+!
+clock source ntp
+!
+! *** Avaya Energy Saver ***
+!
+!
+! *** AUR ***
+!
+!
+! *** AAUR ***
+!
+!
+! *** L3 ***
+!
+!
+!
+! --- ECMP ---
+!
+! No license for ECMP.
+! Contact support@avaya.com to update Software license.
+ip route 0.0.0.0 0.0.0.0 192.168.12.1 10
+!
+! *** Brouter Port ***
+!
+!
+! *** CORE (Phase 2) ***
+!
+!
+! *** IPV6 ***
+!
+!
+! *** VLACP ***
+!
+!
+! *** DHCP Relay ***
+!
+!
+! *** L3 Protocols ***
+!
+!
+! --- IP Directed Broadcast ---
+!
+!
+! --- Proxy ARP ---
+!
+!
+! --- UDP Broadcast Forwarding ---
+!
+!
+! --- VRRP ---
+!
+!
+! --- Route Policies ---
+!
+!
+! --- OSPF ---
+!
+router ospf
+router-id 140.207.132.0
+exit
+!
+! --- RIP ---
+!
+!
+! *** DHCP SNOOPING ***
+!
+!
+! *** ARP INSPECTION ***
+!
+!
+! *** IP SOURCE GUARD ***
+!
+!
+! *** IGMP ***
+!
+!
+! *** STACK MONITOR ***
+!
+!
+! *** SLPP-guard ***
+!
+!
+! *** SLAMON ***
+!
+!
+! *** LINK STATE TRACKING ***
+!
+!
+! *** Fabric Attach ***
+!
+SMGMT-B#

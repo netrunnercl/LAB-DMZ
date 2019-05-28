@@ -1,0 +1,98 @@
+root@FW-OFF# show | display set | no-more
+set version 12.1X46-D10.2
+set groups node0 system host-name FW-OFF-B
+set groups node0 interfaces fxp0 description "MGMT FW-OFF-B"
+set groups node0 interfaces fxp0 unit 0 family inet address 192.168.12.51/24
+set groups node1 system host-name FW-OFF-A
+set groups node1 interfaces fxp0 description "MGMT FW-OFF-A"
+set groups node1 interfaces fxp0 unit 0 family inet address 192.168.12.21/24
+set apply-groups "${node}"
+set system host-name FW-OFF
+set system root-authentication encrypted-password "$1$bm0kzC/V$sdhVilesr.7VVePsGA54./"
+set system services ssh
+set system services telnet
+set system services xnm-clear-text
+set system services dhcp-local-server group POOL_233 interface reth1.233
+set system services dhcp-local-server group POOL_223 interface reth0.223
+set system syslog archive size 100k
+set system syslog archive files 3
+set system syslog user * any emergency
+set system syslog host 192.168.12.121 any any
+set system syslog host 192.168.12.121 match "!(.*license.*)"
+set system syslog host 192.168.12.121 port 8911
+set system syslog file messages any critical
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands error
+set system syslog file policy_session any any
+set system syslog file policy_session match RT_FLOW
+set system syslog file policy_session archive size 1000k
+set system syslog file policy_session archive world-readable
+set system syslog file policy_session structured-data
+set system max-configurations-on-flash 5
+set system max-configuration-rollbacks 5
+set system license autoupdate url https://ae1.juniper.net/junos/key_retrieval
+set chassis cluster reth-count 3
+set chassis cluster redundancy-group 1 node 0 priority 200
+set chassis cluster redundancy-group 1 node 1 priority 100
+set chassis cluster redundancy-group 2 node 1 priority 200
+set chassis cluster redundancy-group 2 node 0 priority 100
+set chassis cluster redundancy-group 2 preempt
+set chassis cluster redundancy-group 2 interface-monitor fe-1/0/3 weight 255
+set chassis cluster redundancy-group 0 node 1 priority 254
+set interfaces fe-0/0/1 description "fe-0/0/1 RETH2"
+set interfaces fe-0/0/1 fastether-options redundant-parent reth2
+set interfaces fe-1/0/1 description "fe-1/0/1 RETH2"
+set interfaces fe-1/0/1 fastether-options redundant-parent reth2
+set interfaces fe-1/0/2 fastether-options redundant-parent reth0
+set interfaces fe-1/0/3 unit 0 family inet address 172.18.2.2/30
+set interfaces fe-1/0/4 fastether-options redundant-parent reth1
+set interfaces fab0 description "fab0 fe-0/0/5"
+set interfaces fab0 fabric-options member-interfaces fe-0/0/5
+set interfaces fab1 description "fab1 fe-1/0/5"
+set interfaces fab1 fabric-options member-interfaces fe-1/0/5
+set interfaces reth0 redundant-ether-options redundancy-group 1
+set interfaces reth0 unit 0 family inet address 172.20.30.1/24
+set interfaces reth1 redundant-ether-options redundancy-group 2
+set interfaces reth1 unit 0 family inet address 172.30.30.1/24
+set interfaces reth2 redundant-ether-options redundancy-group 1
+set interfaces reth2 unit 0 description "reth2.0 INTERCONNECT vlan 255 10.128.255.2/24"
+set interfaces reth2 unit 0 family inet address 10.128.255.2/24
+set routing-options static route 0.0.0.0/0 qualified-next-hop 172.18.1.1
+set routing-options static route 0.0.0.0/0 qualified-next-hop 172.18.2.1 preference 10
+set protocols stp
+set security policies from-zone OFFICE-INTERN to-zone INTERCONNECT policy trust-to-untrust match source-address any
+set security policies from-zone OFFICE-INTERN to-zone INTERCONNECT policy trust-to-untrust match destination-address any
+set security policies from-zone OFFICE-INTERN to-zone INTERCONNECT policy trust-to-untrust match application any
+set security policies from-zone OFFICE-INTERN to-zone INTERCONNECT policy trust-to-untrust then permit
+set security policies from-zone INTERCONNECT to-zone INTERCONNECT policy permit-all match source-address any
+set security policies from-zone INTERCONNECT to-zone INTERCONNECT policy permit-all match destination-address any
+set security policies from-zone INTERCONNECT to-zone INTERCONNECT policy permit-all match application any
+set security policies from-zone INTERCONNECT to-zone INTERCONNECT policy permit-all then permit
+set security policies from-zone INTERCONNECT to-zone INTERCONNECT policy permit-all then log session-close
+set security policies default-policy permit-all
+set security zones security-zone UNTRUST interfaces fe-1/0/3.0
+set security zones security-zone TRUST interfaces reth0.0 host-inbound-traffic system-services all
+set security zones security-zone TRUST interfaces reth1.0 host-inbound-traffic system-services all
+set security zones security-zone INTERCONNECT host-inbound-traffic system-services ping
+set security zones security-zone INTERCONNECT host-inbound-traffic system-services traceroute
+set security zones security-zone INTERCONNECT interfaces reth2.0
+set security zones security-zone OFFICE-INTERN host-inbound-traffic system-services ping
+set security zones security-zone OFFICE-INTERN host-inbound-traffic system-services traceroute
+set access address-assignment pool POOL_233 family inet network 172.30.30.0/24
+set access address-assignment pool POOL_233 family inet range r233 low 172.30.30.100
+set access address-assignment pool POOL_233 family inet range r233 high 172.30.30.250
+set access address-assignment pool POOL_233 family inet dhcp-attributes maximum-lease-time 2419200
+set access address-assignment pool POOL_233 family inet dhcp-attributes name-server 8.8.8.8
+set access address-assignment pool POOL_233 family inet dhcp-attributes router 172.30.30.1
+set access address-assignment pool POOL_223 family inet network 172.20.30.0/24
+set access address-assignment pool POOL_223 family inet range r223 low 172.20.30.100
+set access address-assignment pool POOL_223 family inet range r223 high 172.20.30.250
+set access address-assignment pool POOL_223 family inet dhcp-attributes router 172.20.30.1
+set routing-instances LAB-DMZ description " === LAB DMZ ROUTING INSTANCE ==="
+set routing-instances LAB-DMZ instance-type virtual-router
+set routing-instances LAB-DMZ interface reth2.0
+set vlans v255 description "                                    ==== VLAN 255  INTERCONNECT   ==== "
+set vlans v255 vlan-id 255
+
+{primary:node0}[edit]
+root@FW-OFF#

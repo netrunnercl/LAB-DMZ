@@ -1,0 +1,147 @@
+root@SB-FW-B# show | display set | no-more
+set version 12.3R12.4
+set system host-name SB-FW-B
+set system time-zone Europe/Brussels
+set system root-authentication encrypted-password "$1$NdEf5T22$kexVe1PiiVZ2ir8ETD6QS1"
+set system name-server 192.168.12.10
+set system services ssh
+set system services dhcp traceoptions file dhcp_logfile
+set system services dhcp traceoptions level all
+set system services dhcp traceoptions flag all
+set system syslog user * any emergency
+set system syslog host 192.168.12.121 any any
+set system syslog host 192.168.12.121 match "!(.*RT_FLOW_SESSION.*|.*license.*)"
+set system syslog host 192.168.12.121 port 8911
+set system syslog file messages any info
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set system syslog file default-log-messages any any
+set system ntp server 193.104.37.238
+set system ntp server 213.189.188.3
+set chassis aggregated-devices ethernet device-count 2
+set chassis auto-image-upgrade
+set interfaces ge-0/0/0 description "                           ==== ge-0/0/0 to                  === "
+set interfaces ge-0/0/0 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/0 unit 0 family ethernet-switching vlan members v255
+set interfaces ge-0/0/1 description "                           ==== SB-FW-B ge-0/0/1 to FW-OFF fe-1/0/1               === "
+set interfaces ge-0/0/1 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/1 unit 0 family ethernet-switching vlan members v255
+set interfaces ge-0/0/2 description "                           ==== ge-0/0/2 to             === "
+set interfaces ge-0/0/2 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/3 description "                           ==== SB-FW-B ge-0/0/3 to FW-IND fe-1/0/1               === "
+set interfaces ge-0/0/3 unit 0 family ethernet-switching port-mode trunk
+set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members v255
+set interfaces ge-0/0/4 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/4 unit 0 family ethernet-switching vlan members v255
+set interfaces ge-0/0/5 description "                           ======= INTERCO RPY-B (srv-dmz)   ======= "
+set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v132
+set interfaces ge-0/0/6 description "                           ======= INTERCO RPX-B (srv-dmz)   ======= "
+set interfaces ge-0/0/6 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/6 unit 0 family ethernet-switching vlan members v132
+set interfaces ge-0/0/7 description "                           ======= ge-0/0/7 VOO to interconnect  reth3  ======= "
+set interfaces ge-0/0/7 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members v255
+set interfaces ge-0/0/8 description "                           ==== ge-0/0/8  === "
+set interfaces ge-0/0/8 unit 0 family ethernet-switching
+set interfaces ge-0/0/9 description "                           ==== ge-0/0/9  === "
+set interfaces ge-0/0/9 unit 0 family ethernet-switching
+set interfaces ge-0/0/10 description "                           ======= ge-0/0/10   ======= "
+set interfaces ge-0/0/10 unit 0 family ethernet-switching
+set interfaces ge-0/0/11 description "                           ======= ge-0/0/11   ======= "
+set interfaces ge-0/0/11 unit 0 family ethernet-switching
+set interfaces ge-0/0/12 description "                           ==== ge-0/0/12  === "
+set interfaces ge-0/0/12 unit 0 family ethernet-switching
+set interfaces ge-0/0/13 description "                           ======= ge-0/0/13   ======= "
+set interfaces ge-0/0/13 unit 0 family ethernet-switching
+set interfaces ge-0/0/14 description "                           ======= ge-0/0/14   ======= "
+set interfaces ge-0/0/14 unit 0 family ethernet-switching
+set interfaces ge-0/0/15 description "                           ==== DRONE -1-        === "
+set interfaces ge-0/0/15 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/15 unit 0 family ethernet-switching vlan members v10
+set interfaces ge-0/0/16 description "                           ==== DHCP-OFF        === "
+set interfaces ge-0/0/16 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/16 unit 0 family ethernet-switching vlan members v10
+set interfaces ge-0/0/17 description "                           ==== DRONE -3-        === "
+set interfaces ge-0/0/17 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/17 unit 0 family ethernet-switching vlan members v131
+set interfaces ge-0/0/18 description "                           ==== DRONE -4-        === "
+set interfaces ge-0/0/18 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/18 unit 0 family ethernet-switching vlan members v131
+set interfaces ge-0/0/19 description "                           ==== DRONE -5-        === "
+set interfaces ge-0/0/19 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/19 unit 0 family ethernet-switching vlan members v131
+set interfaces ge-0/0/20 description "                           ==== DRONE -6-        === "
+set interfaces ge-0/0/20 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/20 unit 0 family ethernet-switching vlan members v131
+set interfaces ge-0/0/21 description "                          ==== SB-FW-B ge-0/0/21 TRUNK to SS-B  ge-0/0/21  ==="
+set interfaces ge-0/0/21 unit 0 family ethernet-switching port-mode trunk
+set interfaces ge-0/0/21 unit 0 family ethernet-switching vlan members v10
+set interfaces ge-0/0/21 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/22 description "                          ==== ge-0/0/22  TRUNK To SB-FW-A ( must become aggre ) === "
+set interfaces ge-0/0/22 unit 0 family ethernet-switching
+set interfaces ge-0/0/23 description "                          ==== SB-FW-B ge-0/0/23 TRUNK To SB-FW-A === "
+set interfaces ge-0/0/23 unit 0 family ethernet-switching port-mode trunk
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v10
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v131
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v132
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v160
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v161
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v254
+set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v255
+set interfaces ge-0/1/0 unit 0 family ethernet-switching
+set interfaces ge-0/1/1 unit 0 family ethernet-switching
+set interfaces ge-0/1/2 unit 0 family ethernet-switching
+set interfaces ge-0/1/3 unit 0 family ethernet-switching
+set interfaces me0 description "                          ==== me0 MANAGEMENT INTERFACE ==== "
+set interfaces me0 unit 0 family inet address 192.168.12.53/24
+set interfaces vlan unit 0 family inet dhcp vendor-id Juniper-ex2200-24p-4g
+set interfaces vlan unit 10 family inet address 172.16.10.1/24 vrrp-group 10 virtual-address 172.16.10.3
+set interfaces vlan unit 10 family inet address 172.16.10.1/24 vrrp-group 10 priority 150
+set interfaces vlan unit 10 family inet address 172.16.10.1/24 vrrp-group 10 accept-data
+set interfaces vlan unit 20 family inet address 172.16.20.1/24 vrrp-group 20 virtual-address 172.16.20.3
+set interfaces vlan unit 20 family inet address 172.16.20.1/24 vrrp-group 20 priority 150
+set interfaces vlan unit 20 family inet address 172.16.20.1/24 vrrp-group 20 accept-data
+set interfaces vlan unit 132 family inet address 10.128.160.41/24 vrrp-group 132 virtual-address 10.128.160.43
+set interfaces vlan unit 132 family inet address 10.128.160.41/24 vrrp-group 132 priority 150
+set interfaces vlan unit 132 family inet address 10.128.160.41/24 vrrp-group 132 accept-data
+set snmp name "snmp STOCKEL B SB-FW-B"
+set snmp contact "Rafael.Torrales@gmail.com"
+set routing-options static route 0.0.0.0/0 next-hop 192.168.12.1
+set protocols igmp-snooping vlan all
+set protocols rstp
+set protocols lldp interface all
+set protocols lldp-med interface all
+set routing-instances LAB-DMZ description " === LAB DMZ ROUTING INSTANCE ==="
+set routing-instances LAB-DMZ instance-type virtual-router
+set routing-instances LAB-DMZ interface vlan.10
+set routing-instances LAB-DMZ interface vlan.20
+set routing-instances LAB-DMZ interface vlan.132
+set ethernet-switching-options storm-control interface all
+set vlans BANKSYS
+set vlans default l3-interface vlan.0
+set vlans v10 description "                                    ==== VLAN 10  OFFICE 172.16.1.0/24        ==== "
+set vlans v10 vlan-id 10
+set vlans v10 l3-interface vlan.10
+set vlans v131 description "                                    ==== VLAN 131  REVERSE PROXY INT   ==== "
+set vlans v131 vlan-id 131
+set vlans v132 description "                                    ==== VLAN 132  SERVERS   ==== "
+set vlans v132 vlan-id 132
+set vlans v132 l3-interface vlan.132
+set vlans v160 description "                                    ==== VLAN 160  IPSEC VPN INT   ==== "
+set vlans v160 vlan-id 160
+set vlans v161 description "                                    ==== VLAN 161  SSL VPN INT   ==== "
+set vlans v161 vlan-id 161
+set vlans v20 description "                                    ==== VLAN 20  OFFICE 172.16.2.0/24        ==== "
+set vlans v20 vlan-id 20
+set vlans v20 l3-interface vlan.20
+set vlans v254 description "                                    ==== VLAN 254  BYPASS   ==== "
+set vlans v254 vlan-id 254
+set vlans v255 description "                                    ==== VLAN 255  INTERCONNECT   ==== "
+set vlans v255 vlan-id 255
+set poe interface all
+
+{master:0}[edit]
+root@SB-FW-B#
