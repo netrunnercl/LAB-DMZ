@@ -1,0 +1,50 @@
+Avaya_Commands.avaya
+
+SMGMT-B(config)#show running-config
+
+
+
+
+
+-------------------------------
+SMGMT-B#show interfaces link-up
+              Status                    Auto                        Flow
+Port Trunk Admin   Oper Link LinkTrap Negotiation  Speed   Duplex Control
+---- ----- ------- ---- ---- -------- ----------- -------- ------ -------
+6          Enable  Up   Up   Enabled  Enabled     1000Mbps Full   Asymm
+7          Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+8          Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+9          Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Disable
+12         Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+15         Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+16         Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+17         Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+18         Enable  Up   Up   Enabled  Enabled     100Mbps  Full   Asymm
+24         Enable  Up   Up   Enabled  Enabled     1000Mbps Full   Asymm
+---------------------------------
+
+SMGMT-B#show mac-address-table vid 200
+Mac Address Table Aging Time: 300
+Learning Enabled Ports ALL
+Number of addresses: 16
+
+   MAC Address    Vid   Type       Source
+----------------- ---- ------- --------------
+00-0B-0E-5B-F0-EC  200 Dynamic Port:24
+00-0C-29-63-97-20  200 Dynamic Port:24
+00-0F-66-7E-F9-DF  200 Dynamic Port:24
+00-1D-7E-4B-11-99  200 Dynamic Port:12
+00-23-9C-3F-9E-0B  200 Dynamic Port:24
+00-26-3E-23-80-C0  200 Dynamic Port:24
+40-B4-F0-A6-E0-C0  200 Dynamic Port:24
+78-FE-3D-CA-3C-C6  200 Dynamic Port: 7
+80-80-5A-99-D9-0C  200 Dynamic Port:24
+98-D8-8C-CF-84-00  200 Self
+A8-D0-E5-B5-3F-C1  200 Dynamic Port:24
+A8-D0-E5-B8-86-FF  200 Dynamic Port: 9
+B8-AE-ED-72-AD-B7  200 Dynamic Port:24
+CC-F9-54-61-D8-00  200 Dynamic Port: 6
+CC-F9-54-61-D8-01  200 Dynamic Port: 6
+F4-5C-89-92-F8-61  200 Dynamic Port:24
+
+-----------------------------------------------------

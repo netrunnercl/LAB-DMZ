@@ -1,4 +1,3 @@
-{master:0}[edit]
 root@SS-A# show | display set | no-more
 set version 12.3R12.4
 set system host-name SS-A
@@ -14,8 +13,13 @@ set system syslog file messages any info
 set system syslog file messages authorization info
 set system syslog file interactive-commands interactive-commands any
 set system syslog file default-log-messages any any
+set system ntp boot-server 85.88.55.5
 set system ntp server 193.104.37.238
 set system ntp server 213.189.188.3
+set system ntp server 85.88.55.5
+set system ntp server 195.200.224.66
+set system ntp server 91.121.216.238
+set system ntp server 51.38.2.120
 set chassis aggregated-devices ethernet device-count 2
 set interfaces ge-0/0/0 description "                           ==== ge-0/0/0 FOR MGMT SWITCH          === "
 set interfaces ge-0/0/0 unit 0 family ethernet-switching port-mode access
@@ -35,9 +39,9 @@ set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members v100
 set interfaces ge-0/0/4 description "                           ======= ge-0/0/4 FOR CP and Pulse Connect Secure ======= "
 set interfaces ge-0/0/4 unit 0 family ethernet-switching port-mode access
 set interfaces ge-0/0/4 unit 0 family ethernet-switching vlan members v100
-set interfaces ge-0/0/5 description "                          ==== ge-0/0/5  === "
+set interfaces ge-0/0/5 description "                          ==== ge-0/0/5 DRONE BEYER IND === "
 set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode access
-set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v20
 set interfaces ge-0/0/6 description "                           ==== ge-0/0/6 FOR SHEEVA  LAN === "
 set interfaces ge-0/0/6 unit 0 family ethernet-switching port-mode access
 set interfaces ge-0/0/6 unit 0 family ethernet-switching vlan members v100
@@ -66,45 +70,49 @@ set interfaces ge-0/0/12 unit 0 family ethernet-switching port-mode trunk
 set interfaces ge-0/0/12 unit 0 family ethernet-switching vlan members v100
 set interfaces ge-0/0/12 unit 0 family ethernet-switching vlan members v300
 set interfaces ge-0/0/12 unit 0 family ethernet-switching native-vlan-id 200
-set interfaces ge-0/0/13 description "                          ==== ge-0/0/13 TRUNK  === "
-set interfaces ge-0/0/13 unit 0 family ethernet-switching port-mode trunk
-set interfaces ge-0/0/13 unit 0 family ethernet-switching vlan members v100
-set interfaces ge-0/0/13 unit 0 family ethernet-switching vlan members v300
-set interfaces ge-0/0/13 unit 0 family ethernet-switching native-vlan-id 200
-set interfaces ge-0/0/14 description "                          ==== ge-0/0/14  === "
+set interfaces ge-0/0/13 description "                          ==== ge-0/0/13 DRONE TEMPLE IND=== "
+set interfaces ge-0/0/13 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/13 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/14 description "                          ==== ge-0/0/14 DRONE CAROLA IND === "
 set interfaces ge-0/0/14 unit 0 family ethernet-switching port-mode access
-set interfaces ge-0/0/14 unit 0 family ethernet-switching vlan members v600
+set interfaces ge-0/0/14 unit 0 family ethernet-switching vlan members v20
 set interfaces ge-0/0/15 description "                          ==== ge-0/0/15 TRUNK FOR AP 4 UNDERGROUND === "
 set interfaces ge-0/0/15 unit 0 family ethernet-switching port-mode trunk
 set interfaces ge-0/0/15 unit 0 family ethernet-switching vlan members v100
 set interfaces ge-0/0/15 unit 0 family ethernet-switching vlan members v300
 set interfaces ge-0/0/15 unit 0 family ethernet-switching native-vlan-id 200
-set interfaces ge-0/0/16 description "                          ==== ge-0/0/16 DRONE 1 PLASTIKMAN OFFICE   ==="
+set interfaces ge-0/0/16 description "                          ==== ge-0/0/16 DRONE KITTIN IND   ==="
 set interfaces ge-0/0/16 unit 0 family ethernet-switching port-mode trunk
-set interfaces ge-0/0/16 unit 0 family ethernet-switching native-vlan-id 10
+set interfaces ge-0/0/16 unit 0 family ethernet-switching native-vlan-id 20
 set interfaces ge-0/0/17 description "                          ==== ge-0/0/17 DRONE 2 BODZIN INDUSTRIAL  ==="
 set interfaces ge-0/0/17 unit 0 family ethernet-switching port-mode access
 set interfaces ge-0/0/17 unit 0 family ethernet-switching vlan members v20
-set interfaces ge-0/0/18 description "                          ==== ge-0/0/18 DRONE 3   ==="
+set interfaces ge-0/0/18 description "                          ==== ge-0/0/18 DRONE SPEEDY-J IND   ==="
 set interfaces ge-0/0/18 unit 0 family ethernet-switching port-mode access
-set interfaces ge-0/0/18 unit 0 family ethernet-switching vlan members v10
-set interfaces ge-0/0/19 description "                          ==== ge-0/0/19 DRONE 4   ==="
+set interfaces ge-0/0/18 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/19 description "                          ==== ge-0/0/19 DRONE COX OFF   ==="
 set interfaces ge-0/0/19 unit 0 family ethernet-switching port-mode access
 set interfaces ge-0/0/19 unit 0 family ethernet-switching vlan members v10
 set interfaces ge-0/0/20 description "                          ==== ge-0/0/20 DRONE 5   ==="
 set interfaces ge-0/0/20 unit 0 family ethernet-switching port-mode access
 set interfaces ge-0/0/20 unit 0 family ethernet-switching vlan members v10
-set interfaces ge-0/0/21 description "                          ==== SS-A ge-0/0/21 TRUNK to SB-A  ge-0/0/21  ==="
-set interfaces ge-0/0/21 unit 0 family ethernet-switching port-mode trunk
-set interfaces ge-0/0/21 unit 0 family ethernet-switching vlan members v10
-set interfaces ge-0/0/21 unit 0 family ethernet-switching vlan members v20
-set interfaces ge-0/0/22 description "                          ==== ge-0/0/22  === "
-set interfaces ge-0/0/22 unit 0 family ethernet-switching
+set interfaces ge-0/0/21 description "                          ==== SS-A ge-0/0/21 ae1 TRUNK to SB-A  ae1 ge-0/0/21  ==="
+set interfaces ge-0/0/21 ether-options 802.3ad ae1
+set interfaces ge-0/0/22 description "                          ==== SS-A  ge-0/0/22  ae0 trunk to SB-FW-A ae0 ge-0/0/22=== "
+set interfaces ge-0/0/22 ether-options 802.3ad ae1
 set interfaces ge-0/0/23 description "                          ==== ge-0/0/23 TRUNK FOR AP 3 2nd FLOOR OFFICE === "
 set interfaces ge-0/0/23 unit 0 family ethernet-switching port-mode trunk
 set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v100
 set interfaces ge-0/0/23 unit 0 family ethernet-switching vlan members v300
 set interfaces ge-0/0/23 unit 0 family ethernet-switching native-vlan-id 200
+set interfaces ae1 description "ae1 SS-A  TRUNK to SB-FW-A ae1"
+set interfaces ae1 mtu 9216
+set interfaces ae1 aggregated-ether-options minimum-links 1
+set interfaces ae1 aggregated-ether-options lacp active
+set interfaces ae1 aggregated-ether-options lacp periodic fast
+set interfaces ae1 unit 0 family ethernet-switching port-mode trunk
+set interfaces ae1 unit 0 family ethernet-switching vlan members v10
+set interfaces ae1 unit 0 family ethernet-switching vlan members v20
 set interfaces me0 description "                          ==== me0 MANAGEMENT INTERFACE ==== "
 set interfaces me0 unit 0 family inet address 192.168.12.14/24
 set interfaces vlan unit 100 description "                       ==== VLAN unit 100 INTERFACE ==== "
@@ -170,6 +178,3 @@ set vlans v600 vlan-id 600
 set vlans v700 description "                                    ==== VLAN 700  INTERNET   ==== "
 set vlans v700 vlan-id 700
 set poe interface all
-
-{master:0}[edit]
-root@SS-A#

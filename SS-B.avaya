@@ -1,4 +1,4 @@
-SS-B(config)#show running-config
+SS-B#show running-config
 ! Embedded ASCII Configuration Generator Script
 ! Model = Ethernet Routing Switch 4526GTX
 ! Software version = v5.6.0.009
@@ -97,18 +97,18 @@ vlan name 2 "Management"
 vlan name 10 "OFFICE"
 vlan name 20 "INDUSTRIAL"
 vlan name 200 "DMZ MANAGEMENT"
-vlan ports 21 tagging tagAll filter-unregistered-frames disable
+vlan ports 20-21 tagging tagAll filter-unregistered-frames disable
 vlan ports 25-26 tagging tagAll
 vlan configcontrol flexible
 vlan members 1 NONE
-vlan members 10 1-5,7,9-11,21
-vlan members 20 6,8,21
+vlan members 10 1-5,7,9-11,20-21
+vlan members 20 6,8,20-21
 vlan members 200 22
 vlan ports 1-5 pvid 10
 vlan ports 6 pvid 20
 vlan ports 7 pvid 10
 vlan ports 8 pvid 20
-vlan ports 9-12,21 pvid 10
+vlan ports 9-12,20-21 pvid 10
 vlan ports 22 pvid 200
 vlan ports 25-26 pvid 2
 vlan configcontrol strict
@@ -172,12 +172,19 @@ exit
 ! *** MLT (Phase 1) ***
 !
 mlt 1 name "MLT to Core" disable member 25-26
+mlt 32 bpdu single-port
 !
 ! *** MAC-Based Security ***
 !
 !
 ! *** LACP ***
 !
+interface fastEthernet ALL
+lacp key port 20-21 2
+lacp timeout-time port 20-21 short
+lacp mode port 20-21 active
+lacp aggregation port 20-21 enable
+exit
 !
 ! *** ADAC ***
 !
@@ -186,7 +193,7 @@ mlt 1 name "MLT to Core" disable member 25-26
 !
 spanning-tree port-mode normal
 interface FastEthernet ALL
-spanning-tree port 1-11,21-22 learning disable
+spanning-tree port 1-11,22 learning disable
 exit
 !
 ! *** VLAN Phase 2***
@@ -283,4 +290,4 @@ exit
 !
 ! *** SLPP-guard ***
 !
-SS-B(config)#
+SS-B#
