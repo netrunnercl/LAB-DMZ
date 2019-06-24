@@ -1,0 +1,199 @@
+
+
+-----print as is environment variables----------------------
+OX820> printenv
+autoload=no
+baudrate=115200
+bootargs=console=ttyS0,115200n8
+bootcmd=run dt_bootcmd_usb
+bootdelay=10
+console=console=ttyS0,115200n8
+dt_bootcmd_usb=usb start; run dt_usb_bootcmd; usb stop; reset
+dt_bootm=bootm $uimage_addr $uinitrd_addr $dtb_addr
+dt_load_dtb=ext2load usb 0:1 $dtb_addr $fdt_file
+dt_load_initrd=ext2load usb 0:1 $uinitrd_addr /boot/uInitrd
+dt_load_uimage=ext2load usb 0:1 $uimage_addr /boot/uImage
+dt_usb_boot=run dt_load_uimage; run dt_load_initrd; run dt_load_dtb; run dt_bootm
+dt_usb_bootcmd=run usb_set_bootargs; run dt_usb_boot
+dtb_addr=0x62c00000
+ethact=mii0
+ethaddr=00:25:31:01:fd:9a
+fdt_file=/boot/dts/ox820-pogoplug-classic.dtb
+if_netconsole=ping $serverip
+ipaddr=10.128.10.206
+mtdids=nand0=41000000.nand
+mtdparts=mtdparts=41000000.nand:14m(boot),-(data)
+preboot=run preboot_nc
+preboot_nc=run if_netconsole start_netconsole
+serverip=192.168.0.220
+start_netconsole=setenv ncip $serverip; setenv bootdelay 10; setenv stdin nc; setenv stdout nc; setenv stderr nc; version
+stderr=serial
+stdin=serial
+stdout=serial
+uimage_addr=0x60500000
+uinitrd_addr=0x60e00000
+usb_device=0:1
+usb_set_bootargs=setenv bootargs console=ttyS0,115200 root=/dev/sda1 rootdelay=10
+
+Environment size: 1242/131068 bytes
+OX820>
+------------------------------------------
+
+serverip <<< remote server ip
+ipaddr	<<< local ip
+
+
+setenv serverip 192.168.12.3
+setenv ipaddr 192.168.12.217
+tftp 64000000 initramfs-uImage
+printenv
+go 64000000
+-------------
+
+
+OX820>  setenv boot_lede nand read 0x64000000 0x440000 0x90000 \; go 64000000
+   s e t e n v   b o o t _ l e d e   n a n d   r e a d   0 x 6 4 0 0 0 0 0 0   0 x 4 4 0 0 0 0   0 x 9 0 0 0 0   \ ;   g o   6 4 0 0 0 0 0 0
+OX820> setenv bootcmd run boot_lede
+ s e t e n v   b o o t c m d   r u n   b o o t _ l e d e
+OX820> saveenv
+ s a v e e n v
+Saving Environment to NAND...
+Erasing NAND...
+Erasing at 0x120000 -- 100% complete.
+Writing to NAND... OK
+OX820> tftp 64000000 initramfs-uImage
+ t f t p   6 4 0 0 0 0 0 0   i n i t r a m f s - u I m a g e
+Using mii0 device
+TFTP from server 192.168.12.3; our IP address is 192.168.12.217
+Filename 'initramfs-uImage'.
+Load address: 0x64000000
+Loading: #################################################################
+	 #################################################################
+	 #################################################################
+	 #################################################################
+	 #################################################################
+	 #########################
+	 4.4 MiB/s
+done
+Bytes transferred = 5133400 (4e5458 hex)
+OX820> go 64000000
+ g o   6 4 0 0 0 0 0 0
+## Starting application at 0x64000000 ...
+
+and it booted!!
+----------------------
+sh-3.2# ssh root@192.168.12.250
+The authenticity of host '192.168.12.250 (192.168.12.250)' can't be established.
+RSA key fingerprint is SHA256:ZfTzLXYBai4wPVnyWi9NR/t5oDglmJLUA4x6Pq4U+Pk.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.12.250' (RSA) to the list of known hosts.
+
+
+BusyBox v1.30.1 () built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r10127-3209f5ae3d
+ -----------------------------------------------------
+=== WARNING! =====================================
+There is no root password defined on this device!
+Use the "passwd" command to set up a new password
+in order to prevent unauthorized SSH logins.
+--------------------------------------------------
+root@OpenWrt:~# ifconfig
+br-lan    Link encap:Ethernet  HWaddr 6E:83:30:FB:D3:8D
+          inet addr:192.168.12.250  Bcast:192.168.12.255  Mask:255.255.255.0
+          
+          
+          
+    setenv boot_openwrt nand read 0x64000000 0x440000 0x90000 \; go 64000000     
+    setenv bootcmd run boot_openwrt
+        ---
+        
+        
+scp files
+
+scp openwrt-oxnas-ox820-cloudengines_pogoplugpro-squashfs-ubinized.bin root@192.168.12.115:/tmp
+
+root@OpenWrt:~# sysupgrade -F /tmp/openwrt-oxnas-ox820-cloudengines_pogoplugpro-squashfs-ubinized.bin
+
+
+
+
+
+setenv bootcmd 'nboot 60500000 0 440000; bootm'   ,--- doesnt zwork??? did work later
+saveenv
+
+go 64000000
+
+
+
+scp openwrt-oxnas-ox820-cloudengines_pogoplugpro-squashfs-sysupgrade.tar root@192.168.12.115:/tmp
+
+
+sysupgrade /tmp/openwrt-oxnas-ox820-cloudengines_pogoplugpro-squashfs-sysupgrade.tar
+
+
+
+setenv bootcmd 'nboot 60500000 0 440000; bootm'
+
+
+OX820> setenv bootcmd 'nboot 60500000 0 440000; bootm'
+ s e t e n v   b o o t c m d   ' n b o o t   6 0 5 0 0 0 0 0   0   4 4 0 0 0 0 ;   b o o t m '
+OX820> saveenv
+ s a v e e n v
+Saving Environment to NAND...
+Erasing NAND...
+Erasing at 0x120000 -- 100% complete.
+Writing to NAND... OK
+OX820> reset
+ r e s e t
+resetting ...
+
+U-Boot 2013.10-tld-4 (Sep 08 2014 - 19:43:38) for OXNAS
+gcc (Debian 4.6.3-14) 4.6.3
+GNU ld (GNU Binutils for Debian) 2.22
+Hit any key to stop autoboot:  0
+
+Loading from nand0, offset 0x440000
+   Image Name:   ARM OpenWrt Linux-4.14.123
+   Created:      2019-06-03  15:00:29 UTC
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    2951504 Bytes = 2.8 MiB
+   Load Address: 60008000
+   Entry Point:  60008000
+## Booting kernel from Legacy Image at 60500000 ...
+   Image Name:   ARM OpenWrt Linux-4.14.123
+   Created:      2019-06-03  15:00:29 UTC
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    2951504 Bytes = 2.8 MiB
+   Load Address: 60008000
+   Entry Point:  60008000
+   Verifying Checksum ... OK
+
+
+Starting kernel ...
+-------------
+
+
+If you are using pre-built firmware from ​http://dev.gateworks.com/openwrt then you can use the pre-built SDK there to build OpenWrt packages. The SDK contains a cross toolchain, libraries, and the Makefile structure to be able to build OpenWrt packages without having an entire buildroot tree. Note that you must also have the OpenWrt Toolchain (see below) in your path. For example to build the OpenWrt nuttcp package for laguna (cns3xxx):
+
+$ wget http://dev.gateworks.com/openwrt/latest/cns3xxx/OpenWrt-SDK-cns3xxx-for-linux-x86_64-gcc-4.6-linaro_uClibc-0.9.33.2.tar.bz2
+$ tar xvf OpenWrt-SDK-cns3xxx-for-Linux-i686-gcc-linaro_uClibc-0.9.32.tar.bz2
+$ PATH=$PWD/OpenWrt-SDK-imx61-for-linux-x86_64-gcc-4.6-linaro_uClibc-0.9.33.2/staging_dir/toolchain-arm_v7-a_gcc-4.6-linaro_uClibc-0.9.33.2_eabi/bin:$PATH
+$ cd OpenWrt-SDK-imx61-for-linux-x86_64-gcc-4.6-linaro_uClibc-0.9.33.2
+$ svn export svn://svn.openwrt.org/openwrt/packages/net/nuttcp package/nuttcp
+$ make package/nuttcp/compile
+$ ls bin/cns3xxx/packages/
+nuttcp_6.1.2-2_cns3xxx.ipk  nuttcp-xinetd_6.1.2-2_cns3xxx.ipk
+
+
+
+wget
+tar xvf
+
+

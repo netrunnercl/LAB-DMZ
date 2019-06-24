@@ -1,0 +1,65 @@
+SWRT-SSFW-A#show running-config
+config-file-header
+SWRT-SSFW-A
+v1.4.8.6 / R800_NIK_1_4_202_008
+CLI v1.0
+set system mode switch
+
+file SSD indicator encrypted
+@
+ssd-control-start
+ssd config
+ssd file passphrase control unrestricted
+no ssd file integrity control
+ssd-control-end cb0a3fdb1f3a1af4e4430033719968c0
+!
+vlan database
+vlan 120,129,200,254
+exit
+voice vlan oui-table add 0001e3 Siemens_AG_phone________
+voice vlan oui-table add 00036b Cisco_phone_____________
+voice vlan oui-table add 00096e Avaya___________________
+voice vlan oui-table add 000fe2 H3C_Aolynk______________
+voice vlan oui-table add 0060b9 Philips_and_NEC_AG_phone
+voice vlan oui-table add 00d01e Pingtel_phone___________
+voice vlan oui-table add 00e075 Polycom/Veritel_phone___
+voice vlan oui-table add 00e0bb 3Com_phone______________
+hostname SWRT-SSFW-A
+logging host 192.168.12.121 port 8919 description " Splunk"
+username cisco password encrypted 692759ca5478fa1ddc15d4c8a01e1e4e5100ce67 privilege 15
+ip ssh server
+snmp-server server
+snmp-server location "RACK a"
+snmp-server community public ro view Default
+!
+interface vlan 120
+ name "PUBLIC DMZ"
+!
+interface vlan 129
+ name "REVERSE PROXY EXT"
+!
+interface vlan 200
+ name PROD-MGMT
+ ip address 192.168.12.247 255.255.255.0
+ no ip address dhcp
+!
+interface vlan 254
+ name BYPASS
+!
+interface gigabitethernet8
+ switchport trunk native vlan 200
+!
+interface gigabitethernet9
+ description "LAG 1 to SWRT_SSFW"
+ channel-group 1 mode auto
+!
+interface gigabitethernet10
+ description "LAG 1 to SWRT_SSFW"
+ channel-group 1 mode auto
+!
+interface Port-channel1
+ description SG300_to_SG300
+ switchport trunk allowed vlan add 120,129,200,254
+!
+exit
+SWRT-SSFW-A#

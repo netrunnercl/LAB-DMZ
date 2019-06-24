@@ -1,0 +1,44 @@
+root@sheevaplug:~# cat /etc/apt/sources.list
+deb http://archive.debian.org/debian/ wheezy main non-free contrib
+deb-src http://archive.debian.org/debian/ wheezy main non-free contrib
+
+deb http://archive.debian.org/debian-security/ wheezy/updates main non-free contrib
+deb-src http://archive.debian.org/debian-security/ wheezy/updates main non-free contrib
+
+
+---------
+
+root@sheevaplug:~# apt-get -o Acquire::Check-Valid-Until=false update
+
+root@sheevaplug:~# apt-get install screen
+
+-----------------
+
+not for sheeva but for uboot on pogoplug
+
+serverip <<< remote server ip
+ipaddr	<<< local ip
+
+
+setenv serverip 192.168.12.215
+setenv ipaddr 192.168.12.216
+saveenv
+reset
+------------------------
+
+installing tftp server
+
+
+# /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/srv/tftp"
+TFTP_ADDRESS="0.0.0.0:69"
+TFTP_OPTIONS="--secure"
+
+
+service tftpd-hpa status
+service tftpd-hpa stop
+service tftpd-hpa start
+service tftpd-hpa restart
+service tftpd-hpa force-reload

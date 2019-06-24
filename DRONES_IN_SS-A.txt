@@ -1,0 +1,93 @@
+set interfaces ge-0/0/5 
+set interfaces ge-0/0/11 
+set interfaces ge-0/0/13 
+set interfaces ge-0/0/14 
+set interfaces ge-0/0/16 
+set interfaces ge-0/0/17 
+set interfaces ge-0/0/18 
+set interfaces ge-0/0/19 
+set interfaces ge-0/0/20 
+
+
+
+set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v20
+
+
+delete interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/13 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/14 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/16 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/17 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/18 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/19 unit 0 family ethernet-switching vlan members v20
+delete interfaces ge-0/0/20 unit 0 family ethernet-switching vlan members v20
+
+
+set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/10 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/13 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/14 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/16 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/17 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/18 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/19 unit 0 family ethernet-switching vlan members v200
+set interfaces ge-0/0/20 unit 0 family ethernet-switching vlan members v200
+---------
+
+SHOW DRONES
+
+show interfaces ge-0/0/5 | display set
+show interfaces ge-0/0/7 | display set
+show interfaces ge-0/0/10 | display set
+show interfaces ge-0/0/11 | display set
+show interfaces ge-0/0/13 | display set
+show interfaces ge-0/0/14 | display set
+show interfaces ge-0/0/16 | display set
+show interfaces ge-0/0/17 | display set
+show interfaces ge-0/0/18 | display set
+show interfaces ge-0/0/19 | display set
+show interfaces ge-0/0/20 | display set
+
+
+-----------------------------------
+delete interfaces ge-0/0/5 unit 0 
+delete interfaces ge-0/0/7 unit 0 
+delete interfaces ge-0/0/10 unit 0 
+delete interfaces ge-0/0/11 unit 0 
+delete interfaces ge-0/0/13 unit 0 
+delete interfaces ge-0/0/14 unit 0 
+delete interfaces ge-0/0/16 unit 0 
+delete interfaces ge-0/0/17 unit 0 
+delete interfaces ge-0/0/18 unit 0 
+delete interfaces ge-0/0/19 unit 0 
+delete interfaces ge-0/0/20 unit 0 
+
+set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/7 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/10 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/11 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/13 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/14 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/16 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/17 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/18 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/19 unit 0 family ethernet-switching port-mode access
+set interfaces ge-0/0/20 unit 0 family ethernet-switching port-mode access
+
+
+set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/10 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/13 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/14 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/16 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/17 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/18 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/19 unit 0 family ethernet-switching vlan members v20
+set interfaces ge-0/0/20 unit 0 family ethernet-switching vlan members v20
+
+
